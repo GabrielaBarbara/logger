@@ -1,25 +1,25 @@
 # logger
 A logger for C99 with selective logmessages, output routing and colour
 
-# Display Options
+## Display Options
 
-SHOW_NOTHING:                   Do not output any log messages
-SHOW_EXACT_LOG_LEVEL            See exactly that level
-SHOW_LOG_LEVEL_INCLUDING        See all log levels up to given level
-SHOW_SELECT_LOG_LEVELS          Cherry pick levels to display
+    SHOW_NOTHING:                   Do not output any log messages
+    SHOW_EXACT_LOG_LEVEL            See exactly that level
+    SHOW_LOG_LEVEL_INCLUDING        See all log levels up to given level
+    SHOW_SELECT_LOG_LEVELS          Cherry pick levels to display
 
 
-# Provided LOG Macros
+## Provided LOG Macros
+'''
+    LOG_ERROR_MSG    
+    LOG_WARNING_MSG 
+    LOG_NOTICE_MSG
+    LOG_INFO_MSG
+    LOG_DEBUG_MSG
+'''
+Usage: `LOG_MACRO_NAME(char *name, int level, char *fmt, varargs)`
 
-LOG_ERROR_MSG    
-LOG_WARNING_MSG 
-LOG_NOTICE_MSG
-LOG_INFO_MSG
-LOG_DEBUG_MSG
-
-Usage: LOG_MACRO_NAME(char *name, int level, char *fmt, varargs)
-
-# Function List
+## Function List
 
 * Set the level where and when you need it:
    log_set_level(int display_option, int level) 
@@ -32,9 +32,10 @@ Usage: LOG_MACRO_NAME(char *name, int level, char *fmt, varargs)
 * Define a customised level anywhere:
 
    Global to your file, provide the following declarations:
+'''
          const int CUSTOM_LOG_LEVEL = LOG_BASE_COUNT + __COUNTER__;
-         #define CUSTOM_LOG_MSG("name", CUSTOM_LOG_LEVEL, fmt, ...)
-
+         ##define CUSTOM_LOG_MSG("name", CUSTOM_LOG_LEVEL, fmt, ...)
+'''
 
  * To create a selection of log levels to display:
 
@@ -48,19 +49,19 @@ Usage: LOG_MACRO_NAME(char *name, int level, char *fmt, varargs)
 '''
   This will show you only the selected levels up to LOG_WARN.
 
-# Turn of the colours
+## Turn of the colours
 
   To stop seeing colors change line logger/CMakeLists:16 to
 
   `set(CMAKE_C_FLAGS "-std=c99 -D_GNU_SOURCE -g -fPIC -DCOLOR_ON=0 -DLOGGING_ON=1")`
 
-# Turn off logging
+## Turn off logging
 
   To compile without log macros change line logger/CMakeLists:16 to
 
   `set(CMAKE_C_FLAGS "-std=c99 -D_GNU_SOURCE -g -fPIC -DCOLOR_ON=1 -DLOGGING_ON=0")`
 
-# Repository Structure:
+## Repository Structure:
 
   - include/logger.h --- macros and function prototypes 
   - src/logger.c --- core functionality
@@ -69,22 +70,22 @@ Usage: LOG_MACRO_NAME(char *name, int level, char *fmt, varargs)
   - CMakeLists.txt -- Cmake set up.
 
 
-# To compile logger and run the tests
+## To compile logger and run the tests
 
   - clone the repository
   - mkdir build; cd build; cmake ..;./bin/logger_tests
 
-# Code examples how to use logger:
+## Code examples how to use logger:
 
    - See /tests/logger_tests.c
   
 
-# What's the deal with the color.h file I see?
+## What's the deal with the color.h file I see?
 
    Well, I like color in my debugging statements, it makes things
    easier to see.  Either leave it in place, or, stick it in your
    /usr/local/include so you can use in anywhere you want, like so:
-   #include <color.h>
+   ##include <color.h>
 
    For instructions how to use it, read the file itself, it shows you
    how to easily put some color in your code, and how to turn the
@@ -94,7 +95,7 @@ Usage: LOG_MACRO_NAME(char *name, int level, char *fmt, varargs)
    does not depend on it.
 
 
-# Can I use the code?  
+## Can I use the code?  
 
    Yes, it has an Apache 2.0 licence, with one small caveat: You need
    to keep the licence statement intact, and that also means, you
