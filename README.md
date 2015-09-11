@@ -4,6 +4,7 @@ A logger for C99 with selective logmessages, output routing and colour
 ### Repository Structure:
 
   - include/logger.h --- macros and function prototypes 
+  - include/color.h  -- color service for the log output
   - src/logger.c --- core functionality
   - src/logger_unix_file.c -- optional 'log to file' facility (to come)
   - tests/logger_test.c -- test suite and demo function
