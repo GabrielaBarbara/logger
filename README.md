@@ -86,7 +86,7 @@ A logger for C99 with selective logmessages, output routing and colour
 
 ### Code examples how to use logger:
 
-   - See /tests/logger_tests.c
+   - See [/test/logger_tests.c](https://github.com/GabrielaBarbara/logger/blob/master/test/logger_tests.c)
   
 
 ### What's the deal with the color.h file I see?
