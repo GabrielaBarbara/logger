@@ -81,8 +81,8 @@ A logger for C99 with selective logmessages, output routing and colour
 
 ### To compile logger and run the test
 
-  - clone the repository
-  - mkdir build; cd build; cmake ..;./bin/logger_tests
+  - clone the repository and cd into there
+  - mkdir build; cd build; cmake ..; make; ./bin/logger_tests
 
 ### Code examples how to use logger:
 
