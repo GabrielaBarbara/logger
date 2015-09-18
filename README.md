@@ -6,7 +6,6 @@ A logger for C99 with selective logmessages, output routing and colour
   - include/logger.h --- macros and function prototypes 
   - include/color.h  -- color service for the log output
   - src/logger.c --- core functionality
-  - src/logger_unix_file.c -- optional 'log to file' facility (to come)
   - tests/logger_test.c -- test suite and demo function
   - CMakeLists.txt -- Cmake set up.
 
@@ -79,7 +78,42 @@ A logger for C99 with selective logmessages, output routing and colour
 
   `set(CMAKE_C_FLAGS "-std=c99 -D_GNU_SOURCE -g -fPIC -DCOLOR_ON=1 -DLOGGING_ON=0")`
 
+### Write or append selected log files (Unix only currently)
 
+    Call this function:
+
+    void log_file_init(char *log_dir_name, // directory where the logs are written to
+                       char *symlink_dir,  // where to make the symlink
+                       int with_hostname,  // is the hostname in the file name?
+                       int log_strategy);  // LOG_WRITE_PER_RUN, LOG_APPEND
+
+    with the following pre-defined values:
+
+    append or write individual files per run: `LOG_WRITE_PER_RUN or LOG_APPEND`
+    with or without hostname:                 `NO_HOSTNAME or WITH_HOSTNAME`
+
+
+    Two kinds of symlinks are created:  
+
+    - current.log  
+      symlink to the log of the last run (if selected)
+
+    - append_current.log
+      symlink to the appended log (if selected)
+
+  *Example:*
+
+    log_file_init("/home/g/logger/logs/", 
+                  "/home/g/logger/build/",  
+                  WITH_HOSTNAME,
+                  LOG_WRITE_PER_RUN);
+    log_set_level(SHOW_EXACT_LOG_LEVEL, LOG_ERR);
+    logger_test("Write to log file:  exact log level -> LOG_ERR");
+
+    This will write the result of LOG_ERR to the log file in /logs and
+    the symlink to /build, complete with hostname and time stamp in
+    the name.
+ 
 ### To compile logger and run the test
 
   - clone the repository and cd into there
