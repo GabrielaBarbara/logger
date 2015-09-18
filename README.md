@@ -1,15 +1,12 @@
 # logger
 A logger for C99 with selective logmessages, output routing and colour
 
-Also doubles up as a nice little project starter -- clone, rename and
-you're ready to code anything.
-
 ### Repository Structure:
 
   - include/logger.h --- macros and function prototypes 
   - include/color.h  -- color service for the log output
   - src/logger.c --- core functionality
-  - src/logger_unix_write_file.c -- optional 'log to file' facility (to come)
+  - src/logger_unix_file.c -- optional 'log to file' facility (to come)
   - tests/logger_test.c -- test suite and demo function
   - CMakeLists.txt -- Cmake set up.
 

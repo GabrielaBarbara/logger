@@ -80,18 +80,6 @@ Function List
 
   This will show you only the selected levels up to LOG_WARN .
 
-  * To log to a file initialize the file:
-
-  void log_file_init(char *log_dir_name, 
-       char *symlink_dir,  // where to make the current.log symlink
-       int with_hostname); // is the hostname in the file name?
-
-  void log_print_to_file(char *prefix, char *contents);
-  
-  void close_log(void);
-
-
-
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 To stop seeing colors change line logger/CMakeLists:16 from
 
@@ -122,12 +110,6 @@ And to turn off logging, set -DLOGGING_ON=1 to -DLOGGING_ON=0 in the same line.
 #define SHOW_LOG_LEVEL_INCLUDING 2
 #define SHOW_SELECT_LOG_LEVELS 3
 
-/* Log file options */
-#define LOG_WRITE_PER_RUN 1
-#define LOG_APPEND 2
-#define NO_HOSTNAME 0
-#define WITH_HOSTNAME 1
-
 /** Set the display option and the log level */
 void log_set_level(int display_option, int log_level);
 
@@ -143,25 +125,6 @@ void log_default_stdout_func(char *prefix, char *contents);
 /* Produce the log message defined by the DEFINE_LOG_MSG macro */
 void _log_msg(char *name, int level, char* filename, int linenum, 
               const char* function, char *fmt, ...);
-
-/**********************************/
-/***** File services for unix *****/
-/**********************************/
-
-/* Everytime you open a new logfile, this function needs to be called.
- * This closes the previous file and lets you know where it was
- * written to, and, which symlink to use to view it.
- * If the file you want to append to does not exist, it is created.
- */
-void log_file_init(char *log_dir_name, 
-                   char *symlink_dir,  // where to make the current.log symlink
-                   int with_hostname,  // is the hostname in the file name?
-                   int log_strategy);  // LOG_WRITE_PER_RUN, LOG_APPEND
-
-/* Call this when done, it let's you know the name if the logfile. */
-void close_log(void);
-
-void log_print_to_file(char *prefix, char *contents);
 
 #if LOGGING_ON /* -DLOGGING=1 was passed to gcc */
 
