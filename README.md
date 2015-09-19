@@ -80,20 +80,20 @@ A logger for C99 with selective logmessages, output routing and colour
 
 ### Write or append selected log files (Unix only currently)
 
-    Call this function:
+  Call this function:
 
     void log_file_init(char *log_dir_name, // directory where the logs are written to
                        char *symlink_dir,  // where to make the symlink
                        int with_hostname,  // is the hostname in the file name?
                        int log_strategy);  // LOG_WRITE_PER_RUN, LOG_APPEND
 
-    with the following pre-defined values:
+  with the following pre-defined values:
 
-    append or write individual files per run: `LOG_WRITE_PER_RUN or LOG_APPEND`
-    with or without hostname:                 `NO_HOSTNAME or WITH_HOSTNAME`
+  append or write individual files per run: `LOG_WRITE_PER_RUN or LOG_APPEND`
+  with or without hostname:                 `NO_HOSTNAME or WITH_HOSTNAME`
 
 
-    Two kinds of symlinks are created:  
+  Two kinds of symlinks are created:  
 
     - current.log  
       symlink to the log of the last run (if selected)
@@ -110,10 +110,19 @@ A logger for C99 with selective logmessages, output routing and colour
     log_set_level(SHOW_EXACT_LOG_LEVEL, LOG_ERR);
     logger_test("Write to log file:  exact log level -> LOG_ERR");
 
-    This will write the result of LOG_ERR to the log file in /logs and
-    the symlink to /build, complete with hostname and time stamp in
-    the name.
- 
+  This will write the result of LOG_ERR to the log file in /logs and
+  the symlink to /build, complete with hostname and time stamp in
+  the name.
+
+  If you use color, this writes the file with colour codes.  To look
+  at the file with colour, use:
+
+    less -R
+
+  If you want to remove the colour codes from the log file, use:
+
+    cat logfile_name | sed -r "s:\x1B\[[0-9;]*[m]::g" > target_file
+
 ### To compile logger and run the test
 
   - clone the repository and cd into there
