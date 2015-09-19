@@ -17,7 +17,8 @@
 // limitations under the License.
 
 #include <stdarg.h>    //  va_args
-#include <stdio.h>     //  sprinf
+#include <stdio.h>     //  asprinf,vasprintf
+#include <malloc.h>    //  free
 #include "logger.h"
 
 /* The currently selected log level */
@@ -56,8 +57,10 @@ void log_set_level_selection(int selection[], int size)
     log_level_selection_size = size;
 }
 
-void _log_msg(char *name, int level, char* filename, int linenum, 
-              const char* function, char *fmt, ...)
+void __attribute__((nonnull, format(printf,6,7)))
+_log_msg(const char *name, int level, const char* filename, int linenum, 
+              const char* function, char *fmt, ...) 
+
 {
     switch (log_level_scope) {
         case(SHOW_NOTHING): return;
@@ -85,18 +88,20 @@ void _log_msg(char *name, int level, char* filename, int linenum,
                 return;
             }
         }
-        }
+    }
 
-    char prefix[300];
-    char contents[1000]; 
-
+    char *prefix, *contents;
     va_list argp;
 
-    sprintf(prefix, "%-10s %s:%d %s() \n          ", name, filename, linenum, function);
+    if (-1 == asprintf(&prefix, "%-10s %s:%d %s() \n          ", 
+                       name, filename, linenum, function))
+        prefix = NULL;
 
-    va_start(argp, fmt);
-    vsprintf(contents, fmt, argp);
-    va_end(argp);
-    
+    va_start(argp, fmt); 
+    if (-1 == vasprintf(&contents, fmt, argp))
+        contents = NULL;
+    va_end(argp); 
     log_output_ptr(prefix, contents);
+    free(prefix);
+    free(contents);
 }

@@ -15,81 +15,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-/**
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-Display Options
----------------
-
-SHOW_NOTHING:                   Do not output any log messages
-SHOW_EXACT_LOG_LEVEL            See exactly that level
-SHOW_LOG_LEVEL_INCLUDING        See all log levels up to given level
-SHOW_SELECT_LOG_LEVELS          Cherry pick levels to display
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-Existing Log levels
---------------------
-
-Name         Purpose
-------------------------------------------------------------------------------
-LOG_ERR    
-LOG_WARN   
-LOG_NOTICE 
-LOG_DEBUG  
-LOG_INFO   
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-Provided LOG Macros
--------------------
-
-LOG_ERROR_MSG    
-LOG_WARNING_MSG 
-LOG_NOTICE_MSG
-LOG_INFO_MSG
-LOG_DEBUG_MSG
-
-Usage: LOG_MACRO_NAME(char *name, int level, char *fmt, varargs)
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-Function List
--------------
-
-* Set the level where and when you need it:
-   log_set_level(int display_option, int level) 
-
-* A default printf function is provided for log output, but if you'd like your own
-  define 'your_output_function(char *location, *char contents)' and then use
-     log_set_output_function(your_output_function)       
-  to point to it.
-
-* Define a customised level anywhere:
-
-   Global to your file, provide the following declarations:
-         const int CUSTOM_LOG_LEVEL = LOG_BASE_COUNT + __COUNTER__;
-         #define CUSTOM_LOG_MSG("name", CUSTOM_LOG_LEVEL, fmt, ...)
-
-
- * To create a selection of log levels to display:
-
-  log_set_level_selection(int selection[], int selection_size)
-
-  Usage example:
-         int arr[] = {LOG_INFO, LOG_WARN, YOUR_CUSTOM_LEVEL};
-         log_set_level_selection(arr, 3);
-         log_set_level(SHOW_SELECT_LOG_LEVELS, LOG_WARN)
-
-  This will show you only the selected levels up to LOG_WARN .
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-To stop seeing colors change line logger/CMakeLists:16 from
-
-set(CMAKE_C_FLAGS "-std=c99 -D_GNU_SOURCE -g -fPIC -DCOLOR_ON=1 -DLOGGING_ON=1")
-
-to:  -DCOLOR_ON=0
-
-And to turn off logging, set -DLOGGING_ON=1 to -DLOGGING_ON=0 in the same line.
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-*/
+//
+// Documentation is here https://github.com/GabrielaBarbara/logger 
 
 #ifndef LOGGIN_ON_H
 #define LOGGIN_ON_H
@@ -123,7 +50,8 @@ void log_set_output_function(void (*function_ptr)(char* prefix, char* contents))
 void log_default_stdout_func(char *prefix, char *contents);
 
 /* Produce the log message defined by the DEFINE_LOG_MSG macro */
-void _log_msg(char *name, int level, char* filename, int linenum, 
+void __attribute__((nonnull, format(printf,6,7)))
+ _log_msg(const char *name, int level, const char* filename, int linenum, 
               const char* function, char *fmt, ...);
 
 #if LOGGING_ON /* -DLOGGING=1 was passed to gcc */
