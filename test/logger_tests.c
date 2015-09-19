@@ -80,5 +80,33 @@ int main(int argc, char *argv[])
     log_set_level(SHOW_EXACT_LOG_LEVEL, LOG_SECOND_CUSTOM_LOG_LEVEL);
     logger_test("Show just your second custom log message");
 
+    log_set_output_function(log_print_to_file);
+    log_file_init("/home/g/logger/logs/", 
+                  "/home/g/logger/build/",  
+                  NO_HOSTNAME,
+                  LOG_APPEND);
+
+    log_set_level(SHOW_SELECT_LOG_LEVELS, LOG_SECOND_CUSTOM_LOG_LEVEL);
+    logger_test("Write to log file:  selected log levels up to LOG_SECOND_CUSTOM_LOG_LEVEL");
+    log_set_level(SHOW_EXACT_LOG_LEVEL, LOG_NOTICE);
+    logger_test("Write to log file:  exact log level -> LOG_NOTICE");
+    log_file_init("/home/g/logger/logs/", 
+                  "/home/g/logger/build/",  
+                  NO_HOSTNAME,
+                  LOG_APPEND);
+
+    log_set_level(SHOW_SELECT_LOG_LEVELS, LOG_SECOND_CUSTOM_LOG_LEVEL);
+    logger_test("Write to log file:  selected log levels up to LOG_SECOND_CUSTOM_LOG_LEVEL");
+    log_set_level(SHOW_EXACT_LOG_LEVEL, LOG_NOTICE);
+    logger_test("Write to log file:  exact log level -> LOG_NOTICE");
+
+    log_file_init("/home/g/logger/logs/", 
+                  "/home/g/logger/build/",  
+                  WITH_HOSTNAME,
+                  LOG_WRITE_PER_RUN);
+    log_set_level(SHOW_EXACT_LOG_LEVEL, LOG_ERR);
+    logger_test("Write to log file:  exact log level -> LOG_ERR");
+
+    close_log();
     return 0;
 }
