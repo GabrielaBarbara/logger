@@ -1,6 +1,17 @@
 # logger
-A logger for C99 with selective logmessages, output routing and colour
+A logger for C99 with selective logmessages, output routing and colour.  
+(Also a nice small project starter!)
 
+
+### To compile logger and run the test
+
+  - clone the repository and cd into there
+  - mkdir build; cd build; cmake ..; make; ./bin/logger_tests
+
+### Code examples how to use logger:
+
+   - See [/test/logger_tests.c](https://github.com/GabrielaBarbara/logger/blob/master/test/logger_tests.c)
+  
 ### Repository Structure:
 
   - include/logger.h --- macros and function prototypes 
@@ -62,6 +73,7 @@ A logger for C99 with selective logmessages, output routing and colour
     LOG_NOTICE_MSG
     LOG_INFO_MSG
     LOG_DEBUG_MSG
+    LOG_TODO_MSG
 
     Usage: `LOG_MACRO_NAME(char *name, int level, char *fmt, varargs)`
 
@@ -123,15 +135,6 @@ A logger for C99 with selective logmessages, output routing and colour
 
     cat logfile_name | sed -r "s:\x1B\[[0-9;]*[m]::g" > target_file
 
-### To compile logger and run the test
-
-  - clone the repository and cd into there
-  - mkdir build; cd build; cmake ..; make; ./bin/logger_tests
-
-### Code examples how to use logger:
-
-   - See [/test/logger_tests.c](https://github.com/GabrielaBarbara/logger/blob/master/test/logger_tests.c)
-  
 
 ### What's the deal with the color.h file I see?
 
