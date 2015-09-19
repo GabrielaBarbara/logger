@@ -46,6 +46,7 @@ void logger_test(char *show_what)
     LOG_NOTICE_MSG(ORANGE "This is a LOG_NOTICE_MSG = %s" RESET, "The geek police has been notified.");
     LOG_DEBUG_MSG("This is a LOG_DEBUG_MSG = %s", "The exterminator arrives.");
     LOG_INFO_MSG("This is a LOG_INFO_MSG = %s","You feel very informed.");
+    LOG_TODO_MSG("This is a LOG_TODO_MSG = %s","Don't forget to mow the lawn!");
 
     /* custom log levels */
     LOG_FIRST_CUSTOM_MSG("This is the first customised log function, log level nr = %d",
@@ -56,6 +57,7 @@ void logger_test(char *show_what)
 
     printf(TEAL "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" RESET);
 }
+
 
 
 int main(int argc, char *argv[])
@@ -71,7 +73,7 @@ int main(int argc, char *argv[])
     log_set_level(SHOW_EXACT_LOG_LEVEL, LOG_NOTICE);
     logger_test("show only log level LOG_NOTICE");
 
-    int selection[] = {LOG_INFO, LOG_WARN, LOG_FIRST_CUSTOM_LOG_LEVEL};
+    int selection[] = {LOG_TODO, LOG_WARN, LOG_FIRST_CUSTOM_LOG_LEVEL};
     log_set_level_selection(selection, 3);
 
     log_set_level(SHOW_SELECT_LOG_LEVELS, LOG_FIRST_CUSTOM_LOG_LEVEL);

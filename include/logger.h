@@ -27,9 +27,10 @@
 #define LOG_NOTICE 3
 #define LOG_DEBUG  4
 #define LOG_INFO   5
+#define LOG_TODO   6
 
-/* We have 5 predefined log levels, __COUNTER__ starts at 0 */
-#define LOG_BASE_COUNT 6
+/* We have 6 predefined log levels, __COUNTER__ starts at 0 */
+#define LOG_BASE_COUNT 7
 
 /** Display options */
 #define SHOW_NOTHING 0
@@ -87,6 +88,7 @@ void close_log(void);
 #define LOG_NOTICE_MSG(msg, ...)  DEFINE_LOG_MSG("NOTICE",LOG_NOTICE, msg, __VA_ARGS__);
 #define LOG_INFO_MSG(msg, ...)    DEFINE_LOG_MSG("INFO",LOG_INFO, msg, __VA_ARGS__);
 #define LOG_DEBUG_MSG(msg, ...)   DEFINE_LOG_MSG("DEBUG",LOG_DEBUG, msg, __VA_ARGS__);
+#define LOG_TODO_MSG(msg, ...)    DEFINE_LOG_MSG("TODO",LOG_TODO, msg, __VA_ARGS__);
 
 #else
 
@@ -97,6 +99,6 @@ void close_log(void);
 #define LOG_NOTICE_MSG(msg, ...)  
 #define LOG_INFO_MSG(msg, ...)    
 #define LOG_DEBUG_MSG(msg, ...)   
-
+#define LOG_TODO_MSG(msg, ...)
 #endif /* LOGGGIN_ON */
 #endif /* LOGGING_ON_H */
