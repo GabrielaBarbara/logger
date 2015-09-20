@@ -75,7 +75,7 @@ A logger for C99 with selective logmessages, output routing and colour.
     LOG_DEBUG_MSG
     LOG_TODO_MSG
 
-    Usage: `LOG_MACRO_NAME(char *name, int level, char *fmt, varargs)`
+    Usage: `LOG_MACRO_NAME(char *fmt, varargs)`
 
 
 ### Turn of the colours
