@@ -151,12 +151,24 @@ A logger for C99 with selective logmessages, output routing and colour.
    Alternatively, you can just remove it for your purposes, logger.c
    does not depend on it.
 
+### TODO/Bug list
 
-### Can I use the code?  
+    - Add total_LOG_MSG_count() for log_level definitions, so that
+      every level can be shown without needing to keep count
 
-   Yes, it has an Apache 2.0 licence, with one small caveat: You need
-   to keep the licence statement intact, and that also means, you
-   leave the advert for this repository in place, so other people can
-   see where to get the source.  If I contribute to your project then
-   that is a different matter, because I get to change my licence how
-   I like in order to match your usual conditions :P
+    - Offer an option to colorise just the name of the log messages
+
+    - Move everything in src into lib, so this project can be used as
+      a canned project starter.
+
+    - Add Doxygen 
+
+    - add gcov coverage capability
+
+    - Figure out how to avoid the warning for LOG_MSGs that do not
+      have a va_list entry
+
+    - add #ifdef guard to exclude unix file support for windows compiles
+
+    - add windows log file support
+
