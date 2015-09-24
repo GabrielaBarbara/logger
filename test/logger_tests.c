@@ -23,21 +23,21 @@
 /* To turn off color, pass -DCOLOR=0 to gcc */
 #include "color.h"
 
-/* Demonstrate how to defind a custom log message */
-const int LOG_FIRST_CUSTOM_LOG_LEVEL = LOG_BASE_COUNT + __COUNTER__;
+/* Demonstrate how to define a custom log message */
+int LOG_FIRST_CUSTOM_LOG_LEVEL = LOG_BASE_COUNT + __COUNTER__;
 #define LOG_FIRST_CUSTOM_MSG(msg,...) DEFINE_LOG_MSG("FIRST_CUSTOM_LOG_LEVEL",LOG_FIRST_CUSTOM_LOG_LEVEL,  msg, __VA_ARGS__);
 
-const int LOG_SECOND_CUSTOM_LOG_LEVEL = LOG_BASE_COUNT + __COUNTER__;
+int LOG_SECOND_CUSTOM_LOG_LEVEL = LOG_BASE_COUNT + __COUNTER__;
 #define LOG_SECOND_CUSTOM_MSG(msg,...) DEFINE_LOG_MSG("SECOND_CUSTOM_LOG_LEVEL",LOG_SECOND_CUSTOM_LOG_LEVEL, msg, __VA_ARGS__);
 
-/* Some custom debug levels */
-const int LOG_debug_loop = LOG_BASE_COUNT + __COUNTER__;
+/* Some custom debug levels for the tests */
+int LOG_debug_loop = LOG_BASE_COUNT + __COUNTER__;
 #define LOG_debug_loop_msg(msg,...) DEFINE_LOG_MSG("LOG_debug_loop",LOG_debug_loop, msg, __VA_ARGS__);
 
-const int LOG_debug_while = LOG_BASE_COUNT + __COUNTER__;
+int LOG_debug_while = LOG_BASE_COUNT + __COUNTER__;
 #define LOG_debug_while_msg(msg,...) DEFINE_LOG_MSG("LOG_debug_while",LOG_debug_while, msg, __VA_ARGS__);
 
-/* Set a custom output function */
+/* Set a custom output function with colours that I happen to like */
 void custom_output_function(char *prefix, char* contents)
 {
     printf(MOSS "%s " GREY "%s\n" RESET, prefix, contents);
@@ -64,7 +64,6 @@ void logger_test(char *show_what)
 
     printf(TEAL "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" RESET);
 }
-
 
 
 int main(int argc, char *argv[])
@@ -108,24 +107,19 @@ int main(int argc, char *argv[])
                   NO_HOSTNAME,
                   LOG_APPEND);
 
-
     log_set_level(SHOW_SELECT_LOG_LEVELS, LOG_SECOND_CUSTOM_LOG_LEVEL);
     logger_test("Write to log file:  selected log levels up to LOG_SECOND_CUSTOM_LOG_LEVEL");
 
     /*******************************************************/
     log_set_level(SHOW_EXACT_LOG_LEVEL, LOG_NOTICE);
     logger_test("Write to log file:  exact log level -> LOG_NOTICE");
-    log_file_init("/home/g/logger/logs/", 
-                  "/home/g/logger/build/",  
-                  NO_HOSTNAME,
-                  LOG_APPEND);
 
     log_set_level(SHOW_SELECT_LOG_LEVELS, LOG_SECOND_CUSTOM_LOG_LEVEL);
     logger_test("Write to log file:  selected log levels up to LOG_SECOND_CUSTOM_LOG_LEVEL");
 
     /*******************************************************/
-    log_file_init("/home/g/logger/logs/", 
-                  "/home/g/logger/build/",  
+    log_file_init("/home/g/logger/logs/",
+                  "/home/g/logger/build/",
                   WITH_HOSTNAME,
                   LOG_WRITE_PER_RUN);
     log_set_level(SHOW_EXACT_LOG_LEVEL, LOG_ERR);
@@ -151,8 +145,7 @@ int main(int argc, char *argv[])
     
     while (--i)
         if (3 == i)
-            LOG_debug_while_msg("You roll a %d-sided die %d times.  WINNER!!!",57839, 75899032);
-
-
+            LOG_debug_while_msg("You roll a %d-sided die %d times."  
+                                "WINNER!!!",57839, 75899032);
     return 0;
 }
