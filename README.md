@@ -155,6 +155,12 @@ Usage: `LOG_MACRO_NAME(char *fmt, varargs)`
    Alternatively, you can just remove it for your purposes, logger.c
    does not depend on it.
 
+### My terminal is bleeding colour!
+
+   You forgot to add a RESET statement somewhere in your printf statements.
+
+   To fix the terminal, type: `stty sane`
+
 ### TODO/Bug list
 
     - Offer an option to colorise just the name of the log messages
