@@ -32,6 +32,9 @@
 /* We have 6 predefined log levels, __COUNTER__ starts at 0 */
 #define LOG_BASE_COUNT 7
 
+/* if you ever need more macros than this... change it :-D */
+#define LOG_MAX_LEVEL 1000000
+
 /** Display options */
 #define SHOW_NOTHING 0
 #define SHOW_EXACT_LOG_LEVEL 1

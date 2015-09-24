@@ -86,6 +86,10 @@ int main(int argc, char *argv[])
     logger_test("Show only log level LOG_NOTICE");
 
     /*******************************************************/
+    log_set_level(SHOW_LOG_LEVEL_INCLUDING, LOG_MAX_LEVEL);
+    logger_test("Show all log levels in this code path");
+
+    /*******************************************************/
     // Selective levels test -- several and single
     /*******************************************************/
     int selection[] = {LOG_TODO, LOG_WARN, LOG_FIRST_CUSTOM_LOG_LEVEL};
@@ -101,9 +105,10 @@ int main(int argc, char *argv[])
     /*******************************************************/
     // Unix log file output tests
     /*******************************************************/
+
     log_set_output_function(log_print_to_file);
-    log_file_init("/home/g/logger/logs/", 
-                  "/home/g/logger/build/",  
+    log_file_init("/tmp/", 
+                  "./",  
                   NO_HOSTNAME,
                   LOG_APPEND);
 
@@ -118,8 +123,8 @@ int main(int argc, char *argv[])
     logger_test("Write to log file:  selected log levels up to LOG_SECOND_CUSTOM_LOG_LEVEL");
 
     /*******************************************************/
-    log_file_init("/home/g/logger/logs/",
-                  "/home/g/logger/build/",
+    log_file_init("/tmp/", 
+                  "./",  
                   WITH_HOSTNAME,
                   LOG_WRITE_PER_RUN);
     log_set_level(SHOW_EXACT_LOG_LEVEL, LOG_ERR);
@@ -131,6 +136,7 @@ int main(int argc, char *argv[])
     // TODO and custum debug levels
     /*******************************************************/
 
+    printf(TEAL "Show debug levels of a different code path.\n" RESET);
     log_set_output_function(custom_output_function);    
     int second_selection[] = {LOG_TODO, LOG_debug_while, LOG_debug_loop};
     log_set_level_selection(second_selection, 3);
@@ -147,5 +153,6 @@ int main(int argc, char *argv[])
         if (3 == i)
             LOG_debug_while_msg("You roll a %d-sided die %d times."  
                                 "WINNER!!!",57839, 75899032);
+    printf(TEAL "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" RESET);
     return 0;
 }
