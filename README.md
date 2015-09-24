@@ -133,11 +133,11 @@ Usage: `LOG_MACRO_NAME(char *fmt, varargs)`
   If you use color, this writes the file with colour codes.  To look
   at the file with colour, use:
 
-    less -R
+   `less -R`
 
   If you want to remove the colour codes from the log file, use:
 
-    `cat logfile_name | sed -r "s:\x1B\[[0-9;]*[m]::g" > target_file`
+   `cat logfile_name | sed -r "s:\x1B\[[0-9;]*[m]::g" > target_file`
 
 
 ### What's the deal with the color.h file I see?
