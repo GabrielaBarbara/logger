@@ -6,8 +6,11 @@ A logger for C99 with selective logmessages, output routing and colour.
 ### To compile logger and run the test
 
   - clone the repository and cd into there
-  - mkdir build; cd build; cmake ..; make; ./bin/logger_tests
+  - `mkdir build; cd build; cmake ..; make; ./bin/logger_tests`
 
+  Note: This writes 2 files to your /tmp directory and sets 2 symlinks
+  in the build directory pointing to them.
+ 
 ### Code examples how to use logger:
 
    - See [/test/logger_tests.c](https://github.com/GabrielaBarbara/logger/blob/master/test/logger_tests.c)
@@ -29,6 +32,7 @@ A logger for C99 with selective logmessages, output routing and colour.
 
 * A default printf function is provided for log output, but if you'd like your own
   define:
+
     `your_output_function(char *location, *char contents)`
 
    and then use
@@ -41,7 +45,7 @@ A logger for C99 with selective logmessages, output routing and colour.
 
   Global to your file, provide the following declarations:
 ```
-    const int CUSTOM_LOG_LEVEL = LOG_BASE_COUNT + __COUNTER__;
+    int CUSTOM_LOG_LEVEL = LOG_BASE_COUNT + __COUNTER__;
     #define CUSTOM_LOG_MSG("name", CUSTOM_LOG_LEVEL, fmt, ...)
 ```
 
@@ -75,7 +79,7 @@ A logger for C99 with selective logmessages, output routing and colour.
     LOG_DEBUG_MSG
     LOG_TODO_MSG
 
-    Usage: `LOG_MACRO_NAME(char *fmt, varargs)`
+Usage: `LOG_MACRO_NAME(char *fmt, varargs)`
 
 
 ### Turn of the colours
@@ -101,8 +105,8 @@ A logger for C99 with selective logmessages, output routing and colour.
 
   with the following pre-defined values:
 
-  append or write individual files per run: `LOG_WRITE_PER_RUN or LOG_APPEND`
-  with or without hostname:                 `NO_HOSTNAME or WITH_HOSTNAME`
+  append or write individual files per run: `LOG_WRITE_PER_RUN` or `LOG_APPEND`  
+  with or without hostname:                 `NO_HOSTNAME` or `WITH_HOSTNAME`
 
 
   Two kinds of symlinks are created:  
@@ -115,16 +119,16 @@ A logger for C99 with selective logmessages, output routing and colour.
 
   *Example:*
 
-    log_file_init("/home/g/logger/logs/", 
-                  "/home/g/logger/build/",  
+    log_file_init("/tmp", 
+                  "./",  
                   WITH_HOSTNAME,
                   LOG_WRITE_PER_RUN);
     log_set_level(SHOW_EXACT_LOG_LEVEL, LOG_ERR);
     logger_test("Write to log file:  exact log level -> LOG_ERR");
 
-  This will write the result of LOG_ERR to the log file in /logs and
-  the symlink to /build, complete with hostname and time stamp in
-  the name.
+  This will write the result of LOG_ERR to the log file in /tmp and
+  the symlink to to your current directory, complete with hostname and
+  time stamp in the name.
 
   If you use color, this writes the file with colour codes.  To look
   at the file with colour, use:
@@ -133,7 +137,7 @@ A logger for C99 with selective logmessages, output routing and colour.
 
   If you want to remove the colour codes from the log file, use:
 
-    cat logfile_name | sed -r "s:\x1B\[[0-9;]*[m]::g" > target_file
+    `cat logfile_name | sed -r "s:\x1B\[[0-9;]*[m]::g" > target_file`
 
 
 ### What's the deal with the color.h file I see?
@@ -152,9 +156,6 @@ A logger for C99 with selective logmessages, output routing and colour.
    does not depend on it.
 
 ### TODO/Bug list
-
-    - Add total_LOG_MSG_count() for log_level definitions, so that
-      every level can be shown without needing to keep count
 
     - Offer an option to colorise just the name of the log messages
 
